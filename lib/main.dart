@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sg_mart/login&signin/login.dart';
+import 'package:sg_mart/login&signin/new_account.dart';
 import 'package:sg_mart/screen/landing_page.dart';
 
 void main() {
@@ -10,10 +12,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(brightness:Brightness.dark,),
+      // theme: ThemeData(brightness:Brightness.dark,),
       debugShowCheckedModeBanner: false,
       title: 'SG Mart',
-      home: Home(),
+      home: Login(),
+      // home: Signup(),
     );
   }
 }
