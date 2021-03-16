@@ -119,6 +119,7 @@ class _LoginState extends State<Login> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(40, 25, 40, 5),
                       child: TextFormField(
+                        obscureText: true,
                         decoration: InputDecoration(
                           hintText: "Enter Password",
                           icon: Icon(Icons.person),
@@ -148,7 +149,13 @@ class _LoginState extends State<Login> {
                               "Login",
                               style: TextStyle(),
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => Home(),
+                                  ));
+                            },
                           ),
                         ),
                       ),

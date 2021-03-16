@@ -1,4 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:sg_mart/login&signin/login.dart';
+import 'package:sg_mart/login&signin/new_account.dart';
+import 'package:sg_mart/screen/pages/about.dart';
+import 'package:sg_mart/screen/pages/onbording.dart';
+import 'package:sg_mart/screen/pages/promotion.dart';
+import 'package:sg_mart/screen/pages/start_a_business.dart';
+import 'package:tabbar/tabbar.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -6,8 +13,10 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
-  final tabList = ["Shop", "Promtes", " Start A Business", "About"];
-TabController _tabController;
+
+  final tabList = [Onbording(), Home(), Promotion(),  About(), Business()];
+  TabController _tabController;
+
 
 
 @override
@@ -28,12 +37,29 @@ void initState() {
             child: Align(
               alignment: Alignment.centerLeft,
               child: TabBar(
+                indicatorColor: Colors.green,
                 labelColor: Colors.black,
+                unselectedLabelColor: Colors.grey,
                 controller: _tabController,
                 tabs: [
+                  //Home
                   Tab(
-                    text: "Shop",
-                    icon: Icon(Icons.menu, color: Colors.red),
+                    text: "Home",
+                  ),
+                  //Shop
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: size.width * .020,
+                      ),
+                      Tab(
+                        icon: Icon(Icons.menu, color: Colors.red,textDirection: TextDirection.ltr,),
+                      ),
+                      SizedBox(
+                        width: size.width * 0.020,
+                      ),
+                      Text("Shop")
+                    ],
                   ),
                   Tab(text: "Promotion",),
                   Tab(text: "About Sg Mart",),
@@ -48,13 +74,14 @@ void initState() {
             ),
           ),
         backgroundColor: Colors.white,
-        titleSpacing: 200,
+        // titleSpacing: 200,
         elevation: 0.5,
         title: Text(
           "Sg  Mart",
           style: TextStyle(fontSize: 20, color: Colors.black),
         ),
         actions: [
+          //Signin
           Padding(
             padding: const EdgeInsets.only(top: 18.0),
             child: GestureDetector(
@@ -63,7 +90,7 @@ void initState() {
                 style: TextStyle(color: Colors.black),
               ),
               onTap: () {
-                Navigator.pop(context);
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> Login()));
               },
             ),
           ),
@@ -78,20 +105,22 @@ void initState() {
                 style: TextStyle(color: Colors.black),
               ),
               onTap: () {
-                Navigator.pop(context);
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> Signup(),));
               },
             ),
           ),
+          //Registor
           SizedBox(
             width: size.width * 0.030,
           ),
+          //cart
           Padding(
             padding: const EdgeInsets.only(top: 0.0),
             child: IconButton(
                 icon: Icon(Icons.shopping_cart_outlined),
                 color: Colors.black,
                 onPressed: () {
-                  Navigator.pop(context);
+                  // Navigator.pop(context);
                 }),
           ),
           SizedBox(
@@ -175,59 +204,12 @@ void initState() {
       body: TabBarView(
         controller: _tabController,
         children: tabList.map((item) {
-          return Center(child: Text(item));
+          return Center(
+          );
         }).toList(),
       )
+
     );
   }
 }
 
-// class TestScreen extends StatefulWidget {
-//   @override
-//   _TestScreenState createState() => _TestScreenState();
-// }
-//
-// class _TestScreenState extends State<TestScreen>
-//     with SingleTickerProviderStateMixin {
-//   final tabList = ['Tab 1', 'Tab 2'];
-//   TabController _tabController;
-//
-//   @override
-//   void initState() {
-//     _tabController = TabController(vsync: this, length: tabList.length);
-//     super.initState();
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         backgroundColor: Colors.white,
-//         title: Text('Point Tab Bar'),
-//         centerTitle: false,
-//         bottom: PreferredSize(
-//           preferredSize: Size.fromHeight(kToolbarHeight),
-//           child: Align(
-//             alignment: Alignment.centerLeft,
-//             child: TabBar(
-//               isScrollable: true,
-//               controller: _tabController,
-//
-//               tabs: tabList.map((item) {
-//                 return Tab(
-//                   text: item,
-//                 );
-//               }).toList(),
-//             ),
-//           ),
-//         ),
-//       ),
-//       body: TabBarView(
-//         controller: _tabController,
-//         children: tabList.map((item) {
-//           return Center(child: Text(item));
-//         }).toList(),
-//       ),
-//     );
-//   }
-// }

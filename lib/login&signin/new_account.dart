@@ -8,6 +8,8 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> {
+  get isPressed => null;
+
   @override
   Widget build(BuildContext context) {
     final Size = MediaQuery.of(context).size;
@@ -170,6 +172,7 @@ class _SignupState extends State<Signup> {
                         Padding(
                           padding: const EdgeInsets.fromLTRB(40, 25, 40, 5),
                           child: TextFormField(
+                            obscureText: true,
                             decoration: InputDecoration(
                               hintText: "Enter Password",
                               icon: Icon(Icons.visibility),
@@ -186,13 +189,16 @@ class _SignupState extends State<Signup> {
                           child: TextFormField(
                             decoration: InputDecoration(
                               hintText: "Referal",
+                              icon: Icon(Icons.person_rounded),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.green),
                               ),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(20)),
                             ),
-                          ),),
+                            autofocus: true,
+                          ),
+                        ),
                         //Button
                         Padding(
                           padding: const EdgeInsets.fromLTRB(40, 25, 40, 5),
