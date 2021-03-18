@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:sg_mart/services/onbording_data.dart';
+import 'package:sgmart/services/onbording_data.dart';
 
 
 
