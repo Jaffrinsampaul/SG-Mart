@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sgmart/screen/categories/flour.dart';
 import 'package:sgmart/screen/landing_page.dart';
 import 'package:sgmart/screen/pages/onbording.dart';
 
@@ -219,27 +220,32 @@ class ShopHome extends StatelessWidget {
                   Row(
                     children: [
                       //Flour & Sooji
-                      Padding(
-                        padding: const EdgeInsets.only(left: 350.0),
-                        child: Container(
-                          width: size.width * .10,
-                          height: size.height * .23,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20))),
-                          child: Column(
-                            children: [
-                              Image.asset(
-                                "asset/categories/Flour & Sooji.png",
-                                width: size.width * .10,
-                                height: size.height * .18,
-                              ),
-                              Text("Flour & Sooji",
-                                  style: GoogleFonts.yantramanav(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold))
-                            ],
+                      GestureDetector(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=> Flour_Sooji(),));
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 350.0),
+                          child: Container(
+                            width: size.width * .10,
+                            height: size.height * .23,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20))),
+                            child: Column(
+                              children: [
+                                Image.asset(
+                                  "asset/categories/Flour & Sooji.png",
+                                  width: size.width * .10,
+                                  height: size.height * .18,
+                                ),
+                                Text("Flour & Sooji",
+                                    style: GoogleFonts.yantramanav(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold))
+                              ],
+                            ),
                           ),
                         ),
                       ),
