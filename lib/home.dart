@@ -128,7 +128,7 @@ class _UserHomePageState extends State<UserHomePage> {
                                     .where('id',
                                         isGreaterThanOrEqualTo:
                                             '${snapshot.data.get('id')}')
-                                    .where('id',
+                                    .where('i d',
                                         isLessThanOrEqualTo:
                                             '${snapshot.data.get('id')}~')
                                     // .orderBy('level')

@@ -12,7 +12,8 @@ import 'package:sgmart/constants.dart';
 
 class Home extends StatefulWidget {
   final user;
-  Home({this.user});
+  final  state;
+  Home({this.user, this.state});
   @override
   _HomeState createState() => _HomeState();
 }
@@ -171,21 +172,26 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           ),
         ],
       ),
-      body: TabBarView(
-        controller: _tabController,
-        children: [
-          ShopHome(),
-          Promotion(),
-          About(),
-          FirebaseAuth.instance.currentUser == null
-              ? Center(
-                  child: Text('Please Sign in To Continue'),
-                )
-              : UserHomePage(
-                  user: widget.user,
-                )
-        ],
-      ),
+      // body: widget.state,
+      body: buildTabBarView(),
+    );
+  }
+
+  TabBarView buildTabBarView() {
+    return TabBarView(
+      controller: _tabController,
+      children: [
+        ShopHome(),
+        Promotion(),
+        About(),
+        FirebaseAuth.instance.currentUser == null
+            ? Center(
+                child: Text('Please Sign in To Continue'),
+              )
+            : UserHomePage(
+                user: widget.user,
+              )
+      ],
     );
   }
 }

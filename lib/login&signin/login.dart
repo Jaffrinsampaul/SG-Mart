@@ -103,7 +103,6 @@ class _LoginState extends State<Login> {
                     ],
                   ),
                 ),
-
                 //RightSide
                 Container(
                   decoration: BoxDecoration(
@@ -158,7 +157,6 @@ class _LoginState extends State<Login> {
                                   )),
                             ),
                           ),
-
                           //password
                           Padding(
                             padding: const EdgeInsets.fromLTRB(40, 10, 40, 5),
@@ -184,7 +182,7 @@ class _LoginState extends State<Login> {
                               child: FloatingActionButton.extended(
                                   backgroundColor: Colors.green,
                                   label: Text(
-                                    "Create account",
+                                    "Login",
                                     style: TextStyle(),
                                   ),
                                   onPressed: () async {
@@ -412,27 +410,3 @@ class _LoginState extends State<Login> {
     );
   }
 }
-
-// Padding(
-// padding: const EdgeInsets.fromLTRB(200, 25, 40, 20),
-// child: Row(
-// children: [
-// Center(
-// child: Text(
-// "Already have an account?",
-// style: TextStyle(color: Colors.grey),
-// ),
-// ),
-// GestureDetector(
-// onTap: () {
-// Navigator.push(
-// context,
-// MaterialPageRoute(
-// builder: (context) => Login(),
-// ));
-// },
-// child: Text(
-// "Log In",
-// style: TextStyle(color: Colors.green),
-// ),
-// )
