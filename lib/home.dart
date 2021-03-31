@@ -65,6 +65,7 @@ class _UserHomePageState extends State<UserHomePage> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
+                                    //Starting letter for login user
                                     CircleAvatar(
                                       backgroundColor: kPrimaryColor,
                                       child: Text(
@@ -77,15 +78,14 @@ class _UserHomePageState extends State<UserHomePage> {
                                               .headline6
                                               .copyWith(color: Colors.white)),
                                     ),
-                                    Text(
-                                      '${data.get('name')} \n ${data.get('address')}',
-                                    ),
+                                    Text('${data.get('name')} \n ${data.get('address')}'),
                                     Text('₹0 \nPaid to you'),
-                                    Text(
-                                        '${data.get('phone')} \n your referal id'),
+                                    Text('₹ ${data.get('Commission')}\nCommission'),
+                                    Text('${data.get('phone')} \n your referal id'),
+                                    //clipboard
                                     kIsWeb
                                         ? IconButton(
-                                            icon: Icon(Icons.copy),
+                                            icon: Icon(Icons.copy,color: Colors.green,),
                                             onPressed: () {
                                               Clipboard.setData(
                                                 new ClipboardData(
@@ -115,6 +115,7 @@ class _UserHomePageState extends State<UserHomePage> {
                                   ],
                                 ),
                               ),
+                              //Your referal
                               Padding(
                                 padding: const EdgeInsets.all(12.0),
                                 child: Text(
@@ -122,13 +123,14 @@ class _UserHomePageState extends State<UserHomePage> {
                                   style: Theme.of(context).textTheme.headline5,
                                 ),
                               ),
+                              //data fetching
                               FutureBuilder(
                                 future: FirebaseFirestore.instance
                                     .collection('Users')
                                     .where('id',
                                         isGreaterThanOrEqualTo:
                                             '${snapshot.data.get('id')}')
-                                    .where('i d',
+                                    .where('id',
                                         isLessThanOrEqualTo:
                                             '${snapshot.data.get('id')}~')
                                     // .orderBy('level')
@@ -158,16 +160,16 @@ class _UserHomePageState extends State<UserHomePage> {
                                               snapshot1.data.docs[index1];
                                           return DataModel(
                                             id: int.parse(
-                                                  data1.get('level'),
+                                                  data1.get('level').toString(),
                                                 ) +
                                                 1,
                                             name: data1.get('name'),
                                             parentId:
-                                                int.parse(data1.get('level')) ==
+                                                int.parse(data1.get('level').toString()) ==
                                                         0
                                                     ? -1
                                                     : int.parse(
-                                                        data1.get('level'),
+                                                        data1.get('level').toString(),
                                                       ),
                                           );
                                         },
@@ -180,6 +182,7 @@ class _UserHomePageState extends State<UserHomePage> {
                           ),
                         ),
                       ),
+                      //product & today deals
                       Padding(
                         padding: const EdgeInsets.only(left: 12.0),
                         child: Container(

@@ -23,7 +23,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
   @override
   void initState() {
-    _tabController = TabController(vsync: this, length: 4);
+    _tabController = TabController(vsync: this, length: 3);
     super.initState();
   }
 
@@ -59,9 +59,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                   ],
                 ),
                 //promtion
-                Tab(
-                  text: "Promotion",
-                ),
+                // Tab(
+                //   text: "Promotion",
+                // ),
                 //About
                 Tab(
                   text: "About Sg Mart",
@@ -182,7 +182,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       controller: _tabController,
       children: [
         ShopHome(),
-        Promotion(),
+        // Promotion(),
         About(),
         FirebaseAuth.instance.currentUser == null
             ? Center(

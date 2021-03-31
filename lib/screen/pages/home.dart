@@ -222,7 +222,7 @@ class ShopHome extends StatelessWidget {
                       //Flour & Sooji
                       GestureDetector(
                         onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=> Flour_Sooji(),));
+                          // Navigator.push(context, MaterialPageRoute(builder: (context)=> Flour_Sooji(),));
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(left: 350.0),

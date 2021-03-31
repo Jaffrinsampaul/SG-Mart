@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'SG Mart',
       theme: ThemeData(
+        textSelectionColor: Colors.green,
         primaryColor: kPrimaryColor,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         // textTheme: GoogleFonts.secularOneTextTheme(),

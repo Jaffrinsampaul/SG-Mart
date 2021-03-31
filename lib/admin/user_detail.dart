@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 class User_Detail extends StatefulWidget {
@@ -35,6 +37,7 @@ class _User_DetailState extends State<User_Detail> {
         ),
       ),
       body: Container(
+        //data fetching
         child: FutureBuilder(
           future: FirebaseFirestore.instance
               .collection('Users')
@@ -44,7 +47,13 @@ class _User_DetailState extends State<User_Detail> {
             //Before data display
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
-                child: Text("Loading....."),
+                child: Text(
+                  "Loading.....",
+                  style: TextStyle(
+                      color: Colors.green,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                ),
               );
             } else {
               //Gridview return card return listtile
@@ -65,18 +74,9 @@ class _User_DetailState extends State<User_Detail> {
                         ),
                         trailing: IconButton(
                           splashColor: Colors.green,
-
                           onPressed: () {
-                            Diaglog();
-                            // FirebaseFirestore.instance
-                            //     .collection("Products")
-                            //     .doc("commission")
-                            //     .set({'name': 'Auugtin'});
+                            diaglog(snapshot.data.docs[index].id);
                           },
-                          // onPressed: () =>
-                          //     onpressed(
-                          //         'Add purchase detail',
-                          //         'Price'),
                           icon: Icon(
                             Icons.menu,
                             color: Colors.green,
@@ -99,69 +99,127 @@ class _User_DetailState extends State<User_Detail> {
     );
   }
 
-  Diaglog() {
+  //commission
+  diaglog(snapshot) {
     showDialog(
         context: context,
         builder: (context) {
           return StatefulBuilder(
               builder: (BuildContext context, StateSetter stateSetter) {
-            return Dialog(
-                child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: Text(
-                        "Payment",
-                        style: TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        maxLines: 1,
+            final size = MediaQuery.of(context).size;
+            return Container(
+              child: Dialog(
+                  //shape for dialog box
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                  child: SingleChildScrollView(
+                    child: Container(
+                      width: size.width / 2,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          //payment
+                          Center(
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 15),
+                              child: Text(
+                                "Payment",
+                                style: TextStyle(
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                maxLines: 1,
+                              ),
+                            ),
+                          ),
+                          //textfied
+                          Row(
+                            children: [
+                              //textfiled
+                              Container(
+                                width: size.width / 3,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 25, bottom: 20, top: 20),
+                                  child: TextFormField(
+                                    cursorColor: Colors.green,
+                                    controller: Commission,
+                                    keyboardType: TextInputType.number,
+                                    inputFormatters: <TextInputFormatter>[
+                                      FilteringTextInputFormatter.allow(
+                                          RegExp(r'[0-9]')),
+                                    ],
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20)),
+                                      hintText: "Purhase",
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              //sized between text field and logo
+                              SizedBox(
+                                width: size.width * 0.03,
+                              ),
+                              //logo
+                              Container(
+                                child: Image.asset("asset/sgmart.png"),
+                              )
+                            ],
+                          ),
+                          //button
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(left: 345.0, bottom: 18),
+                            child: RaisedButton(
+                              onPressed: () {
+                                Map<String, dynamic> data = {
+                                  "Commission": Commission.text,
+                                };
+                                FirebaseFirestore.instance
+                                    .collection("Users")
+                                    .doc(snapshot)
+                                    .update(data)
+                                    .then((value) => displayDialog())
+                                    .catchError(
+                                        (error) => print("data not enter"));
+                              },
+                              child: Text(
+                                "sent",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              color: Colors.green,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                            ),
+                          )
+                        ],
                       ),
                     ),
-                  ),
-                  Row(
-                    children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width /1.3,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8),
-                          child: TextFormField(
-                            controller: Commission,
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20)),
-                                hintText: "Purhase"),
-                          ),
-                        ),
-                      ),
-                      // SizedBox(
-                      //   width: 9,
-                      // ),
-                      Container(
-                        child: Image.asset("asset/sgmart.png"),
-                      )
-                    ],
-                  ),
-                  RaisedButton(onPressed: (){
-                    FirebaseFirestore.instance
-                        .collection("User")
-                        .doc()
-                        .set({"Commission":"2000"});
-
-                  },child: Text(
-                    "sent"
-                  ),
-                  )
-                ],
-              ),
-            ));
+                  )),
+            );
           });
         });
+  }
+
+  // not working
+  displayDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => new CupertinoAlertDialog(
+        title: new Text("Alert"),
+        content: new Text("Data Entered"),
+        actions: [
+          CupertinoDialogAction(
+            onPressed: (){
+              Navigator.pop(context);
+            },
+              isDefaultAction: true, child: new Text("Close"))
+        ],
+      ),
+    );
   }
 }
 
