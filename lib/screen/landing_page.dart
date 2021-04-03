@@ -96,29 +96,29 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           ],
         ),
         actions: [
-          FirebaseAuth.instance.currentUser == null
+          // FirebaseAuth.instance.currentUser == null
               //Signin
-              ? Padding(
-                  padding: const EdgeInsets.only(top: 18.0),
-                  child: GestureDetector(
-                    child: Text(
-                      "Sign in",
-                      style: TextStyle(color: Colors.black),
-                    ),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Login(),
-                        ),
-                      );
-                    },
-                  ),
-                )
-              : Container(),
-          SizedBox(
-            width: size.width * 0.030,
-          ),
+          //     ? Padding(
+          //         padding: const EdgeInsets.only(top: 18.0),
+          //         child: GestureDetector(
+          //           child: Text(
+          //             "Sign in",
+          //             style: TextStyle(color: Colors.black),
+          //           ),
+          //           onTap: () {
+          //             Navigator.push(
+          //               context,
+          //               MaterialPageRoute(
+          //                 builder: (context) => Login(),
+          //               ),
+          //             );
+          //           },
+          //         ),
+          //       )
+          //     : Container(),
+          // SizedBox(
+          //   width: size.width * 0.030,
+          // ),
           FirebaseAuth.instance.currentUser == null
               //Registation
               ? Padding(
@@ -155,18 +155,18 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
             width: size.width * 0.030,
           ),
           //Cart icon
-          Padding(
-            padding: const EdgeInsets.only(top: 0.0),
-            child: IconButton(
-                icon: Icon(
-                  Icons.shopping_cart_outlined,
-                  color: kPrimaryColor,
-                ),
-                color: Colors.black,
-                onPressed: () {
-                  // Navigator.pop(context);
-                }),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.only(top: 0.0),
+          //   child: IconButton(
+          //       icon: Icon(
+          //         Icons.shopping_cart_outlined,
+          //         color: kPrimaryColor,
+          //       ),
+          //       color: Colors.black,
+          //       onPressed: () {
+          //         // Navigator.pop(context);
+          //       }),
+          // ),
           SizedBox(
             width: size.width * 0.020,
           ),

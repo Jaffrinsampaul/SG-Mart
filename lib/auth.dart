@@ -22,7 +22,7 @@ class AuthService {
               ? snapshot.data.email == 'admin@maligai.com' &&
               snapshot.data.uid == 'zKneFULSMyg54psRm6eW3EkBVfA3'
               ? AdminPage()
-              : Home(user: snapshot.data.photoURL)
+              : Home(user: snapshot.data)
           // : UserHomePage(
           //     user: snapshot.data.photoURL,
           //   )
@@ -54,7 +54,7 @@ class AuthService {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => Home(user: value.user.photoURL),
+              builder: (context) => Home(user: value.user),
             ),
           );
         });
@@ -72,7 +72,10 @@ class AuthService {
           .createUserWithEmailAndPassword(
           email: useremail, password: userpassword)
           .then((value) async {
-        var id = userreferal.toString() + userphone.toString();
+            await value.user.updateProfile(photoURL: userphone);
+            value.user.reload();
+
+      var id = userreferal.toString() + userphone.toString();
         var len = id.length;
         await FirebaseFirestore.instance
             .collection('Users')
@@ -87,13 +90,6 @@ class AuthService {
           'level': len / 10,
           'id': id,
           "searchindex": setSearchParam(userphone),
-        }).whenComplete(() {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => Login(),
-            ),
-          );
         });
       });
       // Navigator.pushReplacement(

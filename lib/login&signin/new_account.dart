@@ -196,44 +196,44 @@ class _SignupState extends State<Signup> {
                               validator: emailValidator,
                               controller: email,
                               decoration: InputDecoration(
-                                  hintText: "Enter Email id",
-                                  icon: Icon(Icons.email_outlined),
+                                  hintText: "Enter your code",
+                                  icon: Icon(Icons.message),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(20),
                                   )),
                             ),
                           ),
                           //password
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(40, 25, 40, 5),
-                            child: TextFormField(
-                              validator: pwdValidator,
-                              controller: password,
-                              decoration: InputDecoration(
-                                hintText: "Enter Password",
-                                icon: Icon(Icons.visibility),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20)),
-                              ),
-                            ),
-                          ),
+                          // Padding(
+                          //   padding: const EdgeInsets.fromLTRB(40, 25, 40, 5),
+                          //   child: TextFormField(
+                          //     validator: pwdValidator,
+                          //     controller: password,
+                          //     decoration: InputDecoration(
+                          //       hintText: "Enter Password",
+                          //       icon: Icon(Icons.visibility),
+                          //       border: OutlineInputBorder(
+                          //           borderRadius: BorderRadius.circular(20)),
+                          //     ),
+                          //   ),
+                          // ),
                           //Address
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(40, 25, 40, 5),
-                            child: TextFormField(
-                              keyboardType: TextInputType.streetAddress,
-                              validator: (val) => val.isEmpty
-                                  ? 'Please enter your Address'
-                                  : null,
-                              controller: address,
-                              decoration: InputDecoration(
-                                hintText: "Enter Address",
-                                icon: Icon(Icons.location_on),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20)),
-                              ),
-                            ),
-                          ),
+                          // Padding(
+                          //   padding: const EdgeInsets.fromLTRB(40, 25, 40, 5),
+                          //   child: TextFormField(
+                          //     keyboardType: TextInputType.streetAddress,
+                          //     validator: (val) => val.isEmpty
+                          //         ? 'Please enter your Address'
+                          //         : null,
+                          //     controller: address,
+                          //     decoration: InputDecoration(
+                          //       hintText: "Enter Address",
+                          //       icon: Icon(Icons.location_on),
+                          //       border: OutlineInputBorder(
+                          //           borderRadius: BorderRadius.circular(20)),
+                          //     ),
+                          //   ),
+                          // ),
                           //referal
                           Padding(
                             padding: const EdgeInsets.fromLTRB(40, 25, 40, 5),
