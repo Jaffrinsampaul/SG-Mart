@@ -394,21 +394,21 @@ class _UserHomePageState extends State<UserHomePage> {
     var pv =  snapshot.data.docs[index].get('personalVolume');
     var gv = globalVolume;
     var total = 0;
-    return pv <= 3000 && gv <= 12000 && gv >= 50099?
+    return pv <= 3000 && gv >= 12000 && gv <= 50099?
        total = (gv/100 * 1.5) as int:
-    pv <= 3000 && gv <= 51000 && gv <= 101999?
+    pv <= 3000 && gv >= 51000 && gv <= 101999?
        total = (gv/100 * 3.0) as int:
-    pv <= 3000 &&gv <= 102000 && gv <= 203999?
+    pv <= 3000 &&gv >= 102000 && gv <= 203999?
       total = (gv/100 * 4.5) as int:
-    pv <= 3000 && gv <= 204000 && gv <= 407999?
+    pv <= 3000 && gv >= 204000 && gv <= 407999?
       total = (gv/100 * 6.0) as int:
-    pv <= 3000 && gv <= 408000 && gv <= 713999?
+    pv <= 3000 && gv >= 408000 && gv <= 713999?
       total = (gv/100 * 7.5) as int:
-    pv <= 3000 && gv <= 714000 && gv <= 1019999?
+    pv <= 3000 && gv >= 714000 && gv <= 1019999?
       total = (gv/100 * 9.0) as int:
-    pv <= 3000 && gv <= 1020000 ?
+    pv <= 3000 && gv >= 1020000 ?
       total = (gv/100 * 10.5) as int:
-    pv >= 3000 && gv >= 12000?
+    pv >= 3000 && gv <= 12000?
         print("increse your volume "):
 
     FirebaseFirestore.instance.collection('Users')

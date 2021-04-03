@@ -20,19 +20,22 @@ class AuthService {
         builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
           return snapshot.hasData
               ? snapshot.data.email == 'admin@maligai.com' &&
-                      snapshot.data.uid == 'zKneFULSMyg54psRm6eW3EkBVfA3'
-                  ? AdminPage()
-                  : Home(user: snapshot.data.photoURL)
-              // : UserHomePage(
-              //     user: snapshot.data.photoURL,
-              //   )
+              snapshot.data.uid == 'zKneFULSMyg54psRm6eW3EkBVfA3'
+              ? AdminPage()
+              : Home(user: snapshot.data.photoURL)
+          // : UserHomePage(
+          //     user: snapshot.data.photoURL,
+          //   )
               : Home();
         });
   }
 
   //Sign out
-  signOut() async {
-    await FirebaseAuth.instance.signOut();
+  signOut(context) async {
+    await FirebaseAuth.instance.signOut().whenComplete(() {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => handleAuth()));
+    });
     _user = FirebaseAuth.instance.currentUser;
   }
 
@@ -43,118 +46,56 @@ class AuthService {
           .doc(phone)
           .get()
           .then((value) async {
-        if (value.get('adminverified')) {
-          await FirebaseAuth.instance.signInWithEmailAndPassword(
-              email: username, password: userpassword);
-          await FirebaseAuth.instance.currentUser
-              .updateProfile(photoURL: phone);
-          //   .then((value) async {
-          // Navigator.pop(context);
-          // await FirebaseAuth.instance.currentUser
-          //     .updateProfile(photoURL: phone);
-          // Navigator.pushReplacement(
-          //   context,
-          //   MaterialPageRoute(
-          //     builder: (context) => value.user.email == 'admin@maligai.com'
-          //         ? AdminPage()
-          //         : HomePage(),
-          //   ),
-          // );
-          // _user = value.user;
-          // });
-        } else {
-          _buildErrorDialog(context, 'Admin Verification is under process');
-        }
+        await FirebaseAuth.instance
+            .signInWithEmailAndPassword(email: username, password: userpassword)
+            .then((value) async {
+          await value.user.updateProfile(photoURL: phone);
+
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Home(user: value.user.photoURL),
+            ),
+          );
+        });
+        await FirebaseAuth.instance.currentUser.updateProfile(photoURL: phone);
       });
     } on FirebaseAuthException catch (e) {
       _buildErrorDialog(context, e.message);
     }
   }
-  setSearchParam(String refid) {
-    List<String> caseSearchList = List();
-    String temp = "";
-    for (int i = 0; i < refid.length; i++) {
-      temp = temp + refid[i];
-      caseSearchList.add(temp);
-    }
-    return caseSearchList;
-  }
+
   signUp(username, userpassword, useremail, userphone, useraddress, context,
       {userreferal}) async {
     try {
-      await FirebaseAuth.instance
+      FirebaseAuth.instance
           .createUserWithEmailAndPassword(
-          email: useremail,
-          password: userphone)
-          .then((v)  async{
-
-        var gen = await FirebaseFirestore
-            .instance
-            .collection('Users')
-            .doc('general')
-            .get()
-            .then((value) {
-          return value.get('id') + 1;
-        });
-
+          email: useremail, password: userpassword)
+          .then((value) async {
+        var id = userreferal.toString() + userphone.toString();
+        var len = id.length;
         await FirebaseFirestore.instance
             .collection('Users')
-            .doc('general')
-            .update({
-          'id': FieldValue.increment(1)
-        });
-
-        v.user
-            .updateProfile(
-            photoURL:
-
-            userphone);
-        FirebaseFirestore.instance
-            .collection('Users')
             .doc(userphone)
-            .set(
-        {
-        'parent': false,
-        'id': userreferal.toString() +
-        gen.toString(),
-        "searchindex": setSearchParam(
-        userphone),
-        'adminverified': true,
+            .set({
           'name': username,
           'email': useremail,
           'password': userpassword,
           'address': useraddress,
           'phone': userphone,
-          'adminverified': false,
           'ref': userreferal,
-          "searchindex": [],
-        },
-        );}).whenComplete(() {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => Login(),
-          ),
-        );
-      });
-      // await value.user.updateProfile(photoURL: userphone);
-      // _user = value.user;
-      userreferal != null ??
-          await FirebaseFirestore.instance
-              .collection('Users')
-              .doc(userreferal)
-              .set(
-            {
-              'referel': FieldValue.arrayUnion([username])
-            },
-            SetOptions(merge: true),
+          'level': len / 10,
+          'id': id,
+          "searchindex": setSearchParam(userphone),
+        }).whenComplete(() {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Login(),
+            ),
           );
-      await FirebaseFirestore.instance.collection('Users').doc('phone').set(
-        {
-          'numbers': FieldValue.arrayUnion([userphone])
-        },
-        SetOptions(merge: true),
-      );
+        });
+      });
       // Navigator.pushReplacement(
       //   context,
       //   MaterialPageRoute(
@@ -184,5 +125,15 @@ class AuthService {
         );
       },
     );
+  }
+
+  setSearchParam(String refid) {
+    List<String> caseSearchList = [];
+    String temp = "";
+    for (int i = 0; i < refid.length; i++) {
+      temp = temp + refid[i];
+      caseSearchList.add(temp);
+    }
+    return caseSearchList;
   }
 }

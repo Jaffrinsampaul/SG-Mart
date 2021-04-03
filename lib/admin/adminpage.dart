@@ -43,7 +43,7 @@ class _AdminPageState extends State<AdminPage> {
                 ListTile(
                   title: Text('SignOut'),
                   onTap: () {
-                    AuthService().signOut();
+                    AuthService().signOut(context);
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(

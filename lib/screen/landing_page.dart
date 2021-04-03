@@ -147,7 +147,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                       style: TextStyle(color: Colors.black),
                     ),
                     onTap: () {
-                      AuthService().signOut();
+                      AuthService().signOut(context);
                     },
                   ),
                 ),
