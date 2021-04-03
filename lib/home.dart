@@ -20,6 +20,7 @@ class UserHomePage extends StatefulWidget {
 
 class _UserHomePageState extends State<UserHomePage> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+  var globalVolume = 0;
   // User user;
   // @override
   // void initState() {
@@ -79,7 +80,7 @@ class _UserHomePageState extends State<UserHomePage> {
                                               .copyWith(color: Colors.white)),
                                     ),
                                     Text('${data.get('name')} \n ${data.get('address')}'),
-                                    Text('₹0 \nPaid to you'),
+                                    Text('₹ ${data.get('groupVolume')} \nPaid to you'),
                                     Text('₹ ${data.get('Commission')}\nCommission'),
                                     Text('${data.get('phone')} \n your referal id'),
                                     //clipboard
@@ -116,12 +117,16 @@ class _UserHomePageState extends State<UserHomePage> {
                                 ),
                               ),
                               //Your referal
-                              Padding(
-                                padding: const EdgeInsets.all(12.0),
-                                child: Text(
-                                  'Your Referals',
-                                  style: Theme.of(context).textTheme.headline5,
-                                ),
+                              Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(12.0),
+                                    child: Text(
+                                      'Your Referals',
+                                      style: Theme.of(context).textTheme.headline5,
+                                    ),
+                                  ),
+                                ],
                               ),
                               //data fetching
                               FutureBuilder(
@@ -142,39 +147,50 @@ class _UserHomePageState extends State<UserHomePage> {
                                       child: CircularProgressIndicator(),
                                     );
                                   } else {
-                                    // return ListView.builder(
-                                    //   shrinkWrap: true,
-                                    //   itemCount: snapshot1.data.docs.length,
-                                    //   itemBuilder: (context, index) {
-                                    //     return ListTile(
-                                    //       title: Text(
-                                    //           '${index + 1} . ${snapshot1.data.docs[index].get('name')}'),
-                                    //     );
-                                    //   },
-                                    // );
-                                    return DynamicTreeView(
-                                      data: List<BaseData>.generate(
-                                        snapshot1.data.docs.length,
-                                        (index1) {
-                                          var data1 =
-                                              snapshot1.data.docs[index1];
-                                          return DataModel(
-                                            id: int.parse(
-                                                  data1.get('level').toString(),
-                                                ) +
-                                                1,
-                                            name: data1.get('name'),
-                                            parentId:
-                                                int.parse(data1.get('level').toString()) ==
-                                                        0
-                                                    ? -1
-                                                    : int.parse(
-                                                        data1.get('level').toString(),
-                                                      ),
-                                          );
-                                        },
-                                      ),
+                                    return ListView.builder(
+                                      shrinkWrap: true,
+                                      itemCount: snapshot1.data.docs.length,
+                                      itemBuilder: (context, index) {
+                                        globalVolume += snapshot1.data.docs[index].get('personalVolume');
+                                        GestureDetector(
+                                          onTap: (){
+                                            ViewCommission(snapshot, index, globalVolume);
+                                          },
+                                          child: Text(
+                                            'View Commission',style: TextStyle(
+                                            color: Colors.green
+                                          ),
+                                          ),
+                                        );
+                                        return ListTile(
+                                          title: Text(
+                                              '${index + 1} . ${snapshot1.data.docs[index].get('name')}'),
+                                        );
+                                      },
                                     );
+                                    // return DynamicTreeView(
+                                    //   data: List<BaseData>.generate(
+                                    //     snapshot1.data.docs.length,
+                                    //     (index1) {
+                                    //       var data1 =
+                                    //           snapshot1.data.docs[index1];
+                                    //       return DataModel(
+                                    //         id: int.parse(
+                                    //               data1.get('level').toString(),
+                                    //             ) +
+                                    //             1,
+                                    //         name: data1.get('name'),
+                                    //         parentId:
+                                    //             int.parse(data1.get('level').toString()) ==
+                                    //                     0
+                                    //                 ? -1
+                                    //                 : int.parse(
+                                    //                     data1.get('level').toString(),
+                                    //                   ),
+                                    //       );
+                                    //     },
+                                    //   ),
+                                    // );
                                   }
                                 },
                               ),
@@ -372,4 +388,33 @@ class _UserHomePageState extends State<UserHomePage> {
       },
     );
   }
+
+  //commission
+  ViewCommission(AsyncSnapshot snapshot, int index, int globalVolume) {
+    var pv =  snapshot.data.docs[index].get('personalVolume');
+    var gv = globalVolume;
+    var total = 0;
+    return pv <= 3000 && gv <= 12000 && gv >= 50099?
+       total = (gv/100 * 1.5) as int:
+    pv <= 3000 && gv <= 51000 && gv <= 101999?
+       total = (gv/100 * 3.0) as int:
+    pv <= 3000 &&gv <= 102000 && gv <= 203999?
+      total = (gv/100 * 4.5) as int:
+    pv <= 3000 && gv <= 204000 && gv <= 407999?
+      total = (gv/100 * 6.0) as int:
+    pv <= 3000 && gv <= 408000 && gv <= 713999?
+      total = (gv/100 * 7.5) as int:
+    pv <= 3000 && gv <= 714000 && gv <= 1019999?
+      total = (gv/100 * 9.0) as int:
+    pv <= 3000 && gv <= 1020000 ?
+      total = (gv/100 * 10.5) as int:
+    pv >= 3000 && gv >= 12000?
+        print("increse your volume "):
+
+    FirebaseFirestore.instance.collection('Users')
+        .doc(snapshot.data.id).update({"groupVolume": total});
+
+  }
 }
+
+

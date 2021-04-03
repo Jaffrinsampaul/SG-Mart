@@ -159,67 +159,7 @@ class _AdminPageState extends State<AdminPage> {
                                     ListTile(
                                       trailing: RaisedButton(
                                         onPressed: () async {
-                                          FirebaseApp tempApp =
-                                              await Firebase.initializeApp(
-                                                  name: 'temporaryregite',
-                                                  options:
-                                                      Firebase.app().options);
-                                          UserCredential result =
-                                              await FirebaseAuth.instanceFor(
-                                                      app: tempApp)
-                                                  .createUserWithEmailAndPassword(
-                                                      email: data.get('email'),
-                                                      password:
-                                                          data.get('password'))
-                                                  .whenComplete(() => {
-                                                        FirebaseAuth.instance
-                                                            .currentUser
-                                                            .updateProfile(
-                                                                photoURL:
-                                                                    data.get(
-                                                                        'phone'))
-                                                      });
-                                          var gen = await FirebaseFirestore
-                                              .instance
-                                              .collection('Users')
-                                              .doc('general')
-                                              .get()
-                                              .then((value) {
-                                            return value.get('id') + 1;
-                                          });
-                                          var refid = await FirebaseFirestore
-                                              .instance
-                                              .collection('Users')
-                                              .doc(data.get('ref'))
-                                              .get()
-                                              .then((value) {
-                                            return value.get('id');
-                                          });
-                                          await FirebaseFirestore.instance
-                                              .collection('Users')
-                                              .doc('general')
-                                              .update({
-                                            'id': FieldValue.increment(1)
-                                          });
-                                          FirebaseFirestore.instance
-                                              .collection('Users')
-                                              .doc(data.get('phone'))
-                                              .set(
-                                            {
-                                              'parent': data.get('ref') != null
-                                                  ? false
-                                                  : true,
-                                              'id': refid.toString() +
-                                                  gen.toString(),
-                                              "searchindex": setSearchParam(
-                                                  data.get('phone')),
-                                              'adminverified': true
-                                            },
-                                            SetOptions(merge: true),
-                                          );
-                                          tempApp.delete();
-                                          print(FirebaseAuth
-                                              .instance.currentUser.photoURL);
+
                                         },
                                         color: kPrimaryColor,
                                         child: Text(
@@ -395,15 +335,7 @@ class _AdminPageState extends State<AdminPage> {
     );
   }
 // User approval
-  setSearchParam(String refid) {
-    List<String> caseSearchList = List();
-    String temp = "";
-    for (int i = 0; i < refid.length; i++) {
-      temp = temp + refid[i];
-      caseSearchList.add(temp);
-    }
-    return caseSearchList;
-  }
+
 //edit
   onpressed(title, dname) {
     showDialog(
@@ -647,7 +579,7 @@ class _AdminPageState extends State<AdminPage> {
     });
   }
 
-//View button both product  and today deal
+//View button both product and today deal
   view(dname, title) {
     showDialog(
       context: context,

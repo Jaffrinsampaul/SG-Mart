@@ -70,21 +70,66 @@ class AuthService {
       _buildErrorDialog(context, e.message);
     }
   }
-
+  setSearchParam(String refid) {
+    List<String> caseSearchList = List();
+    String temp = "";
+    for (int i = 0; i < refid.length; i++) {
+      temp = temp + refid[i];
+      caseSearchList.add(temp);
+    }
+    return caseSearchList;
+  }
   signUp(username, userpassword, useremail, userphone, useraddress, context,
       {userreferal}) async {
     try {
-      await FirebaseFirestore.instance.collection('Users').doc(userphone).set({
-        'name': username,
-        'email': useremail,
-        'password': userpassword,
-        'address': useraddress,
-        'phone': userphone,
-        'adminverified': false,
-        'ref': userreferal,
-        "searchindex": [],
-        // setSearchParam(value.user.uid)
-      }).whenComplete(() {
+      await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+          email: useremail,
+          password: userphone)
+          .then((v)  async{
+
+        var gen = await FirebaseFirestore
+            .instance
+            .collection('Users')
+            .doc('general')
+            .get()
+            .then((value) {
+          return value.get('id') + 1;
+        });
+
+        await FirebaseFirestore.instance
+            .collection('Users')
+            .doc('general')
+            .update({
+          'id': FieldValue.increment(1)
+        });
+
+        v.user
+            .updateProfile(
+            photoURL:
+
+            userphone);
+        FirebaseFirestore.instance
+            .collection('Users')
+            .doc(userphone)
+            .set(
+        {
+        'parent': false,
+        'id': userreferal.toString() +
+        gen.toString(),
+        "searchindex": setSearchParam(
+        userphone),
+        'adminverified': true,
+          'name': username,
+          'email': useremail,
+          'password': userpassword,
+          'address': useraddress,
+          'phone': userphone,
+          'adminverified': false,
+          'ref': userreferal,
+          "searchindex": [],
+        },
+        );}).whenComplete(() {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
