@@ -20,12 +20,12 @@ class AuthService {
         builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
           return snapshot.hasData
               ? snapshot.data.email == 'admin@maligai.com' &&
-              snapshot.data.uid == 'zKneFULSMyg54psRm6eW3EkBVfA3'
-              ? AdminPage()
-              : Home(user: snapshot.data)
-          // : UserHomePage(
-          //     user: snapshot.data.photoURL,
-          //   )
+                      snapshot.data.uid == 'zKneFULSMyg54psRm6eW3EkBVfA3'
+                  ? AdminPage()
+                  : Home(user: snapshot.data)
+              // : UserHomePage(
+              //     user: snapshot.data.photoURL,
+              //   )
               : Home();
         });
   }
@@ -70,17 +70,28 @@ class AuthService {
     try {
       FirebaseAuth.instance
           .createUserWithEmailAndPassword(
-          email: useremail, password: userpassword)
+              email: useremail, password: userpassword)
           .then((value) async {
-            await value.user.updateProfile(photoURL: userphone);
-            value.user.reload();
+        await value.user.updateProfile(photoURL: userphone);
+        value.user.reload();
 
-      var id = userreferal.toString() + userphone.toString();
+        var refid = await FirebaseFirestore.instance
+            .collection('Users')
+            .doc(userreferal)
+            .get()
+            .then(
+              (value) => value.get('id'),
+            );
+        var id = refid.toString() + userphone.toString();
         var len = id.length;
+        //inital create fill
         await FirebaseFirestore.instance
             .collection('Users')
             .doc(userphone)
             .set({
+          'personalVolume': 0,
+          'groupVolume': 0,
+          'commission': 0,
           'name': username,
           'email': useremail,
           'password': userpassword,
@@ -92,17 +103,12 @@ class AuthService {
           "searchindex": setSearchParam(userphone),
         });
       });
-      // Navigator.pushReplacement(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (context) => UserHomePage(),
-      //   ),
-      // );
     } on FirebaseAuthException catch (e) {
       _buildErrorDialog(context, e.message);
     }
   }
 
+  //alert dialog box
   Future _buildErrorDialog(BuildContext context, _message) {
     return showDialog(
       context: context,

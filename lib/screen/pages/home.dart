@@ -110,30 +110,30 @@ class ShopHome extends StatelessWidget {
                   Row(
                     children: [
                       //Rice
-                      Padding(
-                        padding: const EdgeInsets.only(left: 350.0),
-                        child: Container(
-                          width: size.width * .10,
-                          height: size.height * .23,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                            color: Colors.white,
-                          ),
-                          child: Column(
-                            children: [
-                              //Rice
-                              Image.asset(
-                                "asset/categories/Rice & Pulses.jpg",
-                                width: size.width * .10,
-                                height: size.height * .18,
-                              ),
-                              Text(
-                                "Rice & Pulses",
-                                style: GoogleFonts.yantramanav(
-                                    fontSize: 15, fontWeight: FontWeight.bold),
-                              )
-                            ],
-                          ),
+                      SizedBox(
+                        width: size.width * .23,
+                      ),
+                      Container(
+                        width: size.width * .10,
+                        height: size.height * .23,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          color: Colors.white,
+                        ),
+                        child: Column(
+                          children: [
+                            //Rice
+                            Image.asset(
+                              "asset/categories/Rice & Pulses.jpg",
+                              width: size.width * .10,
+                              height: size.height * .18,
+                            ),
+                            Text(
+                              "Rice & Pulses",
+                              style: GoogleFonts.yantramanav(
+                                  fontSize: 15, fontWeight: FontWeight.bold),
+                            )
+                          ],
                         ),
                       ),
                       //Masala
@@ -220,33 +220,28 @@ class ShopHome extends StatelessWidget {
                   Row(
                     children: [
                       //Flour & Sooji
-                      GestureDetector(
-                        onTap: (){
-                          // Navigator.push(context, MaterialPageRoute(builder: (context)=> Flour_Sooji(),));
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 350.0),
-                          child: Container(
-                            width: size.width * .10,
-                            height: size.height * .23,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20))),
-                            child: Column(
-                              children: [
-                                Image.asset(
-                                  "asset/categories/Flour & Sooji.png",
-                                  width: size.width * .10,
-                                  height: size.height * .18,
-                                ),
-                                Text("Flour & Sooji",
-                                    style: GoogleFonts.yantramanav(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold))
-                              ],
+                      SizedBox(
+                        width: size.width * .23,
+                      ),
+                      Container(
+                        width: size.width * .10,
+                        height: size.height * .23,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(20))),
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              "asset/categories/Flour & Sooji.png",
+                              width: size.width * .10,
+                              height: size.height * .18,
                             ),
-                          ),
+                            Text("Flour & Sooji",
+                                style: GoogleFonts.yantramanav(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold))
+                          ],
                         ),
                       ),
                       //Tea & Coffee

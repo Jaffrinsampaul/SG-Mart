@@ -78,7 +78,6 @@ class _AdminPageState extends State<AdminPage> {
             ),
           iconTheme: Theme.of(context).iconTheme.copyWith(color: Colors.black),
           elevation: 0.0,
-          // backgroundColor: Colors.blueGrey.shade50,
           backgroundColor: Colors.white,
         ),
         body: Padding(
@@ -334,7 +333,6 @@ class _AdminPageState extends State<AdminPage> {
       ),
     );
   }
-// User approval
 
 //edit
   onpressed(title, dname) {
@@ -346,7 +344,6 @@ class _AdminPageState extends State<AdminPage> {
             return Dialog(
               child: SingleChildScrollView(
                 child: Column(
-                  // mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -503,7 +500,6 @@ class _AdminPageState extends State<AdminPage> {
           });
         });
   }
-
 //update
   updated(StateSetter updateState) {
     updateState(() {
@@ -532,14 +528,12 @@ class _AdminPageState extends State<AdminPage> {
       setState(() {});
     });
   }
-
 // plus icon pressed
   deleted(StateSetter updateState, index) {
     updateState(() {
       pname.removeAt(index);
     });
   }
-
 // Product image
   void uploadImage({@required Function(File file) onSelected}) {
     InputElement uploadInput = FileUploadInputElement();
@@ -554,7 +548,6 @@ class _AdminPageState extends State<AdminPage> {
       });
     });
   }
-
 // call inside onpressed
   void uploadToStorage({pathName, fileName, StateSetter updateState}) {
     final path = '$pathName/$fileName';
@@ -578,7 +571,6 @@ class _AdminPageState extends State<AdminPage> {
       });
     });
   }
-
 //View button both product and today deal
   view(dname, title) {
     showDialog(

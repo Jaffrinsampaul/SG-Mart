@@ -233,71 +233,69 @@ class Buttom_Detail extends StatelessWidget {
             height: size.height * .020,
           ),
           //custome mail
-          Padding(
-            padding: const EdgeInsets.only(left: 510.0),
-            child: Row(
-              children: [
-                //email customer
-                Container(
-                    child: Column(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              //email customer
+              Container(
+                  child: Column(
+                children: [
+                  Text(
+                    "Customer Services",
+                    style: GoogleFonts.ubuntu(color: Colors.black, fontSize: 18),
+                  ),
+                  SizedBox(
+                    height: size.height * .010,
+                  ),
+                  Text(
+                    "customercare@sgmart.co.in",
+                    style: TextStyle(color: Colors.white, fontSize: 14),
+                  )
+                ],
+              )),
+              SizedBox(
+                width: size.width * .030,
+              ),
+              //Media email
+              Container(
+                child: Column(
                   children: [
                     Text(
-                      "Customer Services",
-                      style: GoogleFonts.ubuntu(color: Colors.black, fontSize: 18),
+                      "Media Relations",
+                      style: TextStyle(color: Colors.black, fontSize: 18),
                     ),
                     SizedBox(
                       height: size.height * .010,
                     ),
                     Text(
-                      "customercare@sgmart.co.in",
-                      style: TextStyle(color: Colors.white, fontSize: 14),
+                      "media@sgmart.co.in",
+                      style: GoogleFonts.ubuntu(color: Colors.white, fontSize: 14),
                     )
                   ],
-                )),
-                SizedBox(
-                  width: size.width * .030,
                 ),
-                //Media email
-                Container(
-                  child: Column(
-                    children: [
-                      Text(
-                        "Media Relations",
-                        style: TextStyle(color: Colors.black, fontSize: 18),
-                      ),
-                      SizedBox(
-                        height: size.height * .010,
-                      ),
-                      Text(
-                        "media@sgmart.co.in",
-                        style: GoogleFonts.ubuntu(color: Colors.white, fontSize: 14),
-                      )
-                    ],
-                  ),
+              ),
+              SizedBox(
+                width: size.width * .030,
+              ),
+              //Vendor email
+              Container(
+                child: Column(
+                  children: [
+                    Text(
+                      "Vendor Support",
+                      style: TextStyle(color: Colors.black, fontSize: 18),
+                    ),
+                    SizedBox(
+                      height: size.height * .010,
+                    ),
+                    Text(
+                      "vendorsupport@sgmart.co.in",
+                      style: GoogleFonts.ubuntu(color: Colors.white, fontSize: 14),
+                    )
+                  ],
                 ),
-                SizedBox(
-                  width: size.width * .030,
-                ),
-                //Vendor email
-                Container(
-                  child: Column(
-                    children: [
-                      Text(
-                        "Vendor Support",
-                        style: TextStyle(color: Colors.black, fontSize: 18),
-                      ),
-                      SizedBox(
-                        height: size.height * .010,
-                      ),
-                      Text(
-                        "vendorsupport@sgmart.co.in",
-                        style: GoogleFonts.ubuntu(color: Colors.white, fontSize: 14),
-                      )
-                    ],
-                  ),
-                )
-              ],
-            ),
+              )
+            ],
           ),
           SizedBox(
             height: size.height * .030,
