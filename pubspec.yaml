@@ -59,6 +59,8 @@ flutter:
     - asset/user.png
     - asset//
     - asset/categories//
+    - asset/brand//
+    - asset/carousel//
 #    - asset/bannert - Copy.png
     - asset/sgmart.png
     - asset/bannert.png

@@ -7,6 +7,30 @@ import 'package:sgmart/screen/landing_page.dart';
 import 'package:sgmart/screen/pages/onbording.dart';
 
 class ShopHome extends StatelessWidget {
+  // List names = ['Rice', 'Masala', 'Home care', 'Personal Care'];
+  List images = [
+    'asset/categories/bubbly.png',
+    'asset/categories/MASALA sakthi.jpg',
+    'asset/categories/healthy.png',
+    'asset/categories/iyarkaioil.png',
+    'asset/categories/maharaja.png',
+    'asset/categories/mrgoldcoconut.png',
+    'asset/categories/nylonsago.jpg',
+    'asset/categories/prabath.jpg',
+    'asset/categories/riceflour.png',
+    'asset/categories/ricepower.jpg',
+    'asset/categories/savorit.png',
+    'asset/categories/sooji.png',
+    'asset/categories/srinawaab.png',
+    'asset/categories/sunflower.png',
+  ];
+  List brand = [
+    'asset/brand/Aachi.png',
+    'asset/brand/maharaja.png',
+    'asset/sgmart.png',
+    'asset/brand/Sakthi.png',
+    'asset/brand/udhaiyam.png'
+  ];
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -26,32 +50,13 @@ class ShopHome extends StatelessWidget {
                         fit: BoxFit.cover),
                   ),
                 ),
-                //logo
-                Container(
-                  decoration: BoxDecoration(
-                      // color: Colors.grey,
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(25),
-                      image: DecorationImage(
-                          image: AssetImage("asset/sgmart.png"),
-                          fit: BoxFit.contain)),
-                ),
-                //groceryStore
+                //sakthibanner
                 Container(
                   decoration: BoxDecoration(
                       color: Colors.grey,
                       borderRadius: BorderRadius.circular(25),
                       image: DecorationImage(
-                          image: AssetImage("asset/grocerystore.jpg"),
-                          fit: BoxFit.cover)),
-                ),
-                //lay-chips
-                Container(
-                  decoration: BoxDecoration(
-                      color: Colors.grey,
-                      borderRadius: BorderRadius.circular(25),
-                      image: DecorationImage(
-                          image: AssetImage("asset/frito-lay-chips.jpg"),
+                          image: AssetImage("asset/carousel/sakthibanner.png"),
                           fit: BoxFit.cover)),
                 ),
                 //masala
@@ -60,19 +65,9 @@ class ShopHome extends StatelessWidget {
                       color: Colors.grey,
                       borderRadius: BorderRadius.circular(25),
                       image: DecorationImage(
-                          image: AssetImage("asset/masala.jpg"),
+                          image: AssetImage("asset/carousel/masala.jpg"),
                           fit: BoxFit.cover)),
                 ),
-                //sgbanner-1
-                Container(
-                  decoration: BoxDecoration(
-                      // color: Colors.white,
-                      borderRadius: BorderRadius.circular(25),
-                      image: DecorationImage(
-                          image: AssetImage(
-                        "asset/sgbanner-1.jpg",
-                      ))),
-                )
               ],
               options: CarouselOptions(
                   height: size.height * .50,
@@ -84,14 +79,48 @@ class ShopHome extends StatelessWidget {
               height: size.height * .010,
             ),
             Container(
-              // width: size.width * 10,
-              // height: size.height,
-              // decoration: BoxDecoration(
-              //   borderRadius: BorderRadius.all(Radius.circular(20)),
-              //   color: Colors.grey,
-              // ),
               child: Column(
                 children: [
+                  //Brand we offer
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Text(
+                      'Brand we offering',
+                      style: GoogleFonts.yantramanav(
+                        color: Colors.black,
+                        fontSize: 22,
+                      ),
+                    ),
+                  ),
+                  GridView.builder(
+                    shrinkWrap: true,
+                    itemCount: brand.length,
+                    itemBuilder: (_, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(25)),
+                            // color: Colors.white54
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(brand[index],
+                              width: 200,
+                              fit: BoxFit.cover,)
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      mainAxisExtent: 250,
+                      crossAxisCount: (MediaQuery.of(context).size.width /
+                              (MediaQuery.of(context).size.height/ 2.5))
+                          .round(),
+                    ),
+                  ),
                   //Categories
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
@@ -106,232 +135,38 @@ class ShopHome extends StatelessWidget {
                   SizedBox(
                     height: size.height * .060,
                   ),
-                  //First row
-                  Row(
-                    children: [
-                      //Rice
-                      SizedBox(
-                        width: size.width * .23,
-                      ),
-                      Container(
-                        width: size.width * .10,
-                        height: size.height * .23,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                  GridView.builder(
+                    shrinkWrap: true,
+                    itemCount: images.length,
+                    itemBuilder: (_, index) {
+                      return InkWell(
+                        splashColor: Colors.green,
+                        onTap: (){
+                        },
+                        child: Container(
                           color: Colors.white,
-                        ),
-                        child: Column(
-                          children: [
-                            //Rice
-                            Image.asset(
-                              "asset/categories/Rice & Pulses.jpg",
-                              width: size.width * .10,
-                              height: size.height * .18,
-                            ),
-                            Text(
-                              "Rice & Pulses",
-                              style: GoogleFonts.yantramanav(
-                                  fontSize: 15, fontWeight: FontWeight.bold),
-                            )
-                          ],
-                        ),
-                      ),
-                      //Masala
-                      Padding(
-                        padding: const EdgeInsets.only(left: 50.0),
-                        child: Container(
-                          width: size.width * .10,
-                          height: size.height * .23,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20))),
                           child: Column(
                             children: [
                               Image.asset(
-                                "asset/categories/MASALA sakthi.jpg",
-                                width: size.width * .10,
-                                height: size.height * .18,
+                                images[index],
+                                height: 220,
+                                fit: BoxFit.cover,
                               ),
-                              Text("Masala",
-                                  style: GoogleFonts.yantramanav(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold))
                             ],
                           ),
                         ),
-                      ),
-                      //Home Care
-                      Padding(
-                        padding: const EdgeInsets.only(left: 50.0),
-                        child: Container(
-                          width: size.width * .10,
-                          height: size.height * .23,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20))),
-                          child: Column(
-                            children: [
-                              Image.asset(
-                                "asset/categories/homecare.jpg",
-                                width: size.width * .10,
-                                height: size.height * .18,
-                              ),
-                              Text("Home Care",
-                                  style: GoogleFonts.yantramanav(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold))
-                            ],
-                          ),
-                        ),
-                      ),
-                      //personal Care
-                      Padding(
-                        padding: const EdgeInsets.only(left: 50.0),
-                        child: Container(
-                          width: size.width * .10,
-                          height: size.height * .23,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20))),
-                          child: Column(
-                            children: [
-                              Image.asset(
-                                "asset/categories/personalcare.png",
-                                width: size.width * .090,
-                                height: size.height * .18,
-                              ),
-                              Text("Personal Care",
-                                  style: GoogleFonts.yantramanav(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold))
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: size.height * .060,
-                  ),
-                  //second row
-                  Row(
-                    children: [
-                      //Flour & Sooji
-                      SizedBox(
-                        width: size.width * .23,
-                      ),
-                      Container(
-                        width: size.width * .10,
-                        height: size.height * .23,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(20))),
-                        child: Column(
-                          children: [
-                            Image.asset(
-                              "asset/categories/Flour & Sooji.png",
-                              width: size.width * .10,
-                              height: size.height * .18,
-                            ),
-                            Text("Flour & Sooji",
-                                style: GoogleFonts.yantramanav(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold))
-                          ],
-                        ),
-                      ),
-                      //Tea & Coffee
-                      Padding(
-                        padding: const EdgeInsets.only(left: 50.0),
-                        child: Container(
-                          width: size.width * .10,
-                          height: size.height * .23,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(20))),
-                          child: Column(
-                            children: [
-                              Image.asset(
-                                "asset/categories/Tea & Coffee.jpg",
-                                width: size.width * .10,
-                                height: size.height * .18,
-                              ),
-                              Text(
-                                  "Tea & Coffee",
-                                  style: GoogleFonts.yantramanav(
-                                      fontSize: 15, fontWeight: FontWeight.bold)
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      //Dry Fruits
-                      Padding(
-                        padding: const EdgeInsets.only(left: 50.0),
-                        child: Container(
-                          width: size.width * .10,
-                          height: size.height * .23,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(20))),
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: 9,
-                              ),
-                              Image.asset(
-                                "asset/categories/Dry Fruits.png",
-                                width: size.width * .10,
-                                height: size.height * .18,
-                              ),
-                              SizedBox(
-                                height: 2,
-                              ),
-                              Text(
-                                  "Dry Fruits",
-                                  style: GoogleFonts.yantramanav(
-                                      fontSize: 15, fontWeight: FontWeight.bold)
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      //Oil ,Ghee, Butter & Cheese
-                      Padding(
-                        padding: const EdgeInsets.only(left: 50.0),
-                        child: Container(
-                          width: size.width * .10,
-                          height: size.height * .23,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(20))),
-                          child: Column(
-                            children: [
-                              Image.asset(
-                                "asset/categories/Oil ,Ghee, Butter & Cheese.jpg",
-                                width: size.width * .10,
-                                height: size.height * .18,
-                              ),
-                              Text(
-                                  "Oil ,Ghee, Butter\n& Cheese",
-                                  style: GoogleFonts.yantramanav(
-                                      fontSize: 13, fontWeight: FontWeight.bold)
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: size.width * .020,
+                      );
+                    },
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      mainAxisExtent: 250,
+                      crossAxisCount: (MediaQuery.of(context).size.width /
+                              (MediaQuery.of(context).size.height / 2))
+                          .round(),
+                      // crossAxisSpacing: 5.0,
+                      // mainAxisSpacing: 5.0,
+                      // childAspectRatio: MediaQuery.of(context).size.width /
+                      //     (MediaQuery.of(context).size.height / 2)
+                    ),
                   )
                 ],
               ),
