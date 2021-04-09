@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sgmart/auth.dart';
 import 'package:sgmart/home.dart';
-import 'package:sgmart/login&signin/login.dart';
 import 'package:sgmart/login&signin/new_account.dart';
 import 'package:sgmart/screen/pages/about.dart';
 import 'package:sgmart/screen/pages/home.dart';
-import 'package:sgmart/screen/pages/promotion.dart';
 import 'package:sgmart/constants.dart';
 
 class Home extends StatefulWidget {
